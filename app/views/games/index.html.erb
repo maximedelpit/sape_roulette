@@ -1,4 +1,38 @@
 Coucou
 <% if current_user.nil? %>
-<%= link_to "Click to play", omniauth_authorize_path(:user, :facebook) %><br />
+  <%= link_to "Click to play", omniauth_authorize_path(:user, :facebook) %>
 <% end %>
+
+<ul class="friends-list">
+</ul>
+
+<div>
+  <% @pictures.each do |p| %>
+    <%= image_tag p %>
+  <% end %>
+</div>
+
+<% if current_user %>
+  <%= content_for(:after_js) do %>
+    <%= javascript_tag do %>
+      var accessToken = "<%= j current_user.token %>";
+      $.get("https://graph.facebook.com/me?fields=taggable_friends{id,name,picture.type(normal)}",
+        { access_token: accessToken },
+        function(data) {
+          var friends = data.taggable_friends.data;
+
+          $.each(friends, function( index, value ) {
+            var name =  value.name;
+            var id = value.id;
+            <!-- var pictureUrl = "http://graph.facebook.com/" + id + "/picture?type=normal  "; -->
+
+            var pictureUrl = value.picture.data.url;
+            var profilePic = $("<img>").attr("src", pictureUrl);
+            $(".friends-list").append(profilePic).append(name);
+          });
+        }
+      );
+    <% end %>
+  <%end%>
+<% end %>
+

@@ -32,5 +32,6 @@
          fjs.parentNode.insertBefore(js, fjs);
        }(document, 'script', 'facebook-jssdk'));
     </script>
+    <%= yield(:after_js) %>
   </body>
 </html>

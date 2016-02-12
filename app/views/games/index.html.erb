@@ -1,0 +1,4 @@
+Coucou
+<% if current_user.nil? %>
+<%= link_to "Click to play", omniauth_authorize_path(:user, :facebook) %><br />
+<% end %>

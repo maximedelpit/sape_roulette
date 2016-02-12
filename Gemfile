@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.3.0'
+ruby '2.2.3'
 
 gem 'rails', '4.2.5'
 gem 'puma'
@@ -7,6 +7,7 @@ gem 'pg'
 gem 'figaro'
 gem 'jbuilder', '~> 2.0'
 gem 'devise'
+gem 'omniauth-facebook'
 gem 'redis'
 
 gem 'sass-rails'
@@ -16,6 +17,13 @@ gem 'bootstrap-sass'
 gem 'font-awesome-sass'
 gem 'simple_form'
 gem 'autoprefixer-rails'
+
+gem 'js-routes'
+gem 'react-rails', '1.2.0'
+
+source 'https://rails-assets.org' do
+  gem 'rails-assets-classnames'
+end
 
 group :development, :test do
   gem 'binding_of_caller'

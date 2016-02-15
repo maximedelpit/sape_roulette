@@ -26,6 +26,8 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-classnames'
 end
 
+gem 'acts_as_votable'
+
 group :development, :test do
   gem 'binding_of_caller'
   gem 'better_errors'

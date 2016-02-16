@@ -23,80 +23,67 @@ var Game = React.createClass({
       data: { games: {action : action, friend: friend, look_id: look}},
       dataType: 'json',
       success: function(data) {
-        console.log(data);
         $.each(data, function( key, value ) {
           that.state.friend_looks[key] = value;
         });
         that.setState({ friend_looks : that.state.friend_looks });
       }
     });
-    // remove / replace Friend & look to others
   },
-  renderFriend : function() {
+  seenLooks : function(friend_key) {
+    if (this.state.friend_looks === {}) {
+      // console.log('ici');
+      looks_to_see = this.props.looks;
+    } else {
+      looks_to_see = {};
+      var that = this;
+      $.each(that.state.friend_looks, function(key, value){
+        // console.log('VALUE');
+        // console.log(value["friend"]);
+        // console.log('FRIEND');
+        // console.log(friend_key);
+        if (value["friend"] != friend_key) {
+          var look_id = value["look_id"]
+          looks_to_see[look_id] = that.props.looks[look_id];
+        }
+      });
+    }
+    return looks_to_see
+  },
+  // renderFriend : function() {
+  //   var friends = Object.keys(this.props.friends)
+  //   var friend_key = friends[Math.floor(Math.random() * friends.length )];
+  //   return <Friend key={friend_key} index={friend_key} details={this.props.friends[friend_key]} ref='friend'/>
+  // },
+  // renderLook : function(friend_key) {
+  //   var look_seen = Object.keys(this.props.friend_looks)
+  //   var looks = Object.keys(this.props.looks)
+  //   var look_key = looks[Math.floor(Math.random() *  looks.length)];
+  //   return <Look key={look_key} index={look_key} details={this.props.looks[look_key]} ref='look'/>
+  // },
+  renderGameArea : function() {
+    // select friend
     var friends = Object.keys(this.props.friends)
     var friend_key = friends[Math.floor(Math.random() * friends.length )];
-    return <Friend key={friend_key} index={friend_key} details={this.props.friends[friend_key]} ref='friend'/>
-  },
-  renderLook : function() {
-    var looks = Object.keys(this.props.looks)
+    // select look
+    var looks = Object.keys(this.seenLooks(friend_key));
     var look_key = looks[Math.floor(Math.random() *  looks.length)];
-    return <Look key={look_key} index={look_key} details={this.props.looks[look_key]} ref='look'/>
+    return (
+      <div id="game-area text-center">
+        <Friend key={friend_key} index={friend_key} details={this.props.friends[friend_key]} ref='friend'/>
+        <Look key={look_key} index={look_key} details={this.props.looks[look_key]} ref='look'/>
+      </div>
+    )
   },
   render : function(){
     return (
       <div className='game-wrapper col-xs-10 col-xs-offset-1'>
         <h1 className="game-title text-center">Sape Roulette</h1>
-        <div id="game-area text-center">
-          {this.renderFriend()}
-          {this.renderLook()}
-          <div className="action-buttons col-xs-12">
-            <Button action="ditch" submitChoice={this.submitChoice}/>
-            <Button action="match" submitChoice={this.submitChoice}/>
-          </div>
+          {this.renderGameArea()}
+        <div className="action-buttons col-xs-12">
+          <Button action="ditch" submitChoice={this.submitChoice}/>
+          <Button action="match" submitChoice={this.submitChoice}/>
         </div>
-      </div>
-    )
-  }
-});
-
-var Friend = React.createClass({
-  render : function(){
-    var details = this.props.details
-    return (
-      <div className="col-xs-6 text-center">
-        <div className="name">{details.name}</div>
-        <div className="img">
-          <img alt={details.name} src={details.url}/>
-        </div>
-      </div>
-    )
-  }
-});
-
-var Look = React.createClass({
-  render : function(){
-    var details = this.props.details
-    return (
-      <div className="col-xs-6 text-center">
-        <div className="name">{details.name}</div>
-        <div className="img">
-          <img alt={details.name} src={details.url}/>
-        </div>
-      </div>
-    )
-  }
-});
-
-var Button = React.createClass({
-  triggerAction : function(event) {
-    event.preventDefault();
-    var action = this.props.action;
-    this.props.submitChoice(action);
-  },
-  render: function(){
-    return(
-      <div className="col-xs-6 text-center">
-        <button className="btn btn-default btn-danger" onClick={this.triggerAction}>{this.props.action}</button>
       </div>
     )
   }

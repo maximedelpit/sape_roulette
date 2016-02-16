@@ -1,9 +1,11 @@
-
-
 <div class="container">
   <div id="value-prop text-center">
     <h1>Sape Roulette</h1>
     <p>Resapez vous et vos potes!</p>
   </div>
-  <%= react_component "Game", render(template: 'games/index.json.jbuilder') %>
+  <% if !current_user %>
+    <%= link_to "Click to play", omniauth_authorize_path(:user, :facebook) %>
+  <% else %>
+    <%= react_component "Game", render(template: 'games/index.json.jbuilder') %>
+  <% end %>
 </div>

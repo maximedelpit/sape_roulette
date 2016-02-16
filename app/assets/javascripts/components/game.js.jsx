@@ -14,13 +14,14 @@ var Game = React.createClass({
   },
   submitChoice : function(action) {
     // retrieve friend name & look_id
-    var friend = this.refs["friend"].props.index;
+    var token = this.refs["friend"].props.index;
+    var name =  this.props.friends[token].name;
     var look = this.refs["look"].props.index;
     var that = this;
     $.ajax({
       type: 'POST',
       url: Routes.upvote_games_path({ format: 'json' }),
-      data: { games: {action : action, friend: friend, look_id: look}},
+      data: { games: {action : action, friend: name, look_id: look}},
       dataType: 'json',
       success: function(data) {
         $.each(data, function( key, value ) {
@@ -32,43 +33,26 @@ var Game = React.createClass({
   },
   seenLooks : function(friend_key) {
     if ($.isEmptyObject(this.state.friend_looks)) {
-      // console.log('ici');
-      looks_to_see = this.props.looks;
+      looks_to_see = Object.keys(this.state.looks);
     } else {
-      looks_to_see = {};
+      looks_to_see = Object.keys(this.state.looks);
       var that = this;
       $.each(that.state.friend_looks, function(key, value){
-        // console.log('VALUE');
-        // console.log(value["friend"]);
-        // console.log('FRIEND');
-        // console.log(friend_key);
-        if (value["friend"] != friend_key) {
+        if (value["friend"] === that.state.friends[friend_key].name) {
           var look_id = value["look_id"]
-          looks_to_see[look_id] = that.props.looks[look_id];
+          looks_to_see.splice($.inArray(look_id, looks_to_see),1);
         }
       });
     }
     return looks_to_see
   },
-  // renderFriend : function() {
-  //   var friends = Object.keys(this.props.friends)
-  //   var friend_key = friends[Math.floor(Math.random() * friends.length )];
-  //   return <Friend key={friend_key} index={friend_key} details={this.props.friends[friend_key]} ref='friend'/>
-  // },
-  // renderLook : function(friend_key) {
-  //   var look_seen = Object.keys(this.props.friend_looks)
-  //   var looks = Object.keys(this.props.looks)
-  //   var look_key = looks[Math.floor(Math.random() *  looks.length)];
-  //   return <Look key={look_key} index={look_key} details={this.props.looks[look_key]} ref='look'/>
-  // },
   renderGameArea : function() {
-    // select friend
+    // select friend => NB => ideally in the  game we should not select friends who have seen every looks
     var friends = Object.keys(this.props.friends)
     var friend_key = friends[Math.floor(Math.random() * friends.length )];
     // select look
-    var looks = Object.keys(this.seenLooks(friend_key));
+    var looks = this.seenLooks(friend_key);
     var look_key = looks[Math.floor(Math.random() *  looks.length)];
-    console.log(look_key);
     return (
       <div className="game-area text-center">
         <Friend key={friend_key} index={friend_key} details={this.props.friends[friend_key]} ref='friend'/>

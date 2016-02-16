@@ -3,8 +3,7 @@ var Look = React.createClass({
   render : function() {
     var details = this.props.details;
     return (
-      <div className="col-xs-6 text-center">
-        <div className="name">{details.name}</div>
+      <div className="game-box text-center">
         <div className="img">
           <img alt={details.name} src={details.url}/>
         </div>

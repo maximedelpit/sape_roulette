@@ -1,8 +1,9 @@
 <div class="container">
-  <div id="value-prop text-center">
+  <div class="value-prop text-center">
     <h1>Sape Roulette</h1>
     <p>Resapez vous et vos potes!</p>
   </div>
+  <div class="separator"></div>
   <% if !current_user %>
     <%= link_to "Click to play", omniauth_authorize_path(:user, :facebook) %>
   <% else %>

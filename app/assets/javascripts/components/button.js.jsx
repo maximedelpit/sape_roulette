@@ -6,7 +6,7 @@ var Button = React.createClass({
   },
   render: function(){
     return(
-      <div className="col-xs-6 text-center">
+      <div className={this.props.action}>
         <button className="btn btn-default btn-danger" onClick={this.triggerAction}>{this.props.action}</button>
       </div>
     )

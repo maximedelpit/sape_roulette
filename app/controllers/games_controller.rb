@@ -3,7 +3,7 @@ class GamesController < ApplicationController
     if current_user
       @graph = Koala::Facebook::API.new(current_user.token)
       @profile = @graph.get_object("me")
-      @facebook_friends = @graph.get_connections("me", 'taggable_friends', { fields: ['id', 'name', 'type', 'picture.type(large)']})
+      @facebook_friends = @graph.get_connections("me", 'taggable_friends', { fields: ['id', 'name', 'type', 'picture.height(300).width(300)']})
       @friends = @facebook_friends.map do |f|
         {name: f["name"], url: f["picture"]["data"]["url"]}
       end

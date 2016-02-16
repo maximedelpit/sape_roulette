@@ -54,7 +54,7 @@ var Game = React.createClass({
     var looks = this.seenLooks(friend_key);
     var look_key = looks[Math.floor(Math.random() *  looks.length)];
     return (
-      <div id="game-area text-center">
+      <div className="game-area text-center">
         <Friend key={friend_key} index={friend_key} details={this.props.friends[friend_key]} ref='friend'/>
         <Look key={look_key} index={look_key} details={this.props.looks[look_key]} ref='look'/>
       </div>
@@ -62,10 +62,9 @@ var Game = React.createClass({
   },
   render : function(){
     return (
-      <div className='game-wrapper col-xs-10 col-xs-offset-1'>
-        <h1 className="game-title text-center">Sape Roulette</h1>
+      <div className='game-wrapper'>
           {this.renderGameArea()}
-        <div className="action-buttons col-xs-12">
+        <div className="action-buttons">
           <Button action="ditch" submitChoice={this.submitChoice}/>
           <Button action="match" submitChoice={this.submitChoice}/>
         </div>

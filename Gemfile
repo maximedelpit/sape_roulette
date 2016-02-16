@@ -10,6 +10,7 @@ gem 'devise'
 gem 'omniauth-facebook'
 gem "koala", "~> 2.2"
 gem 'redis'
+gem 'nokogiri', '~> 1.6', '>= 1.6.6.2'
 
 gem 'sass-rails'
 gem 'jquery-rails'

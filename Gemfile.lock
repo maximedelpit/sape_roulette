@@ -230,6 +230,7 @@ DEPENDENCIES
   jquery-rails
   js-routes
   koala (~> 2.2)
+  nokogiri (~> 1.6, >= 1.6.6.2)
   omniauth-facebook
   pg
   pry-byebug

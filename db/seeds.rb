@@ -1,5 +1,5 @@
 
-Look.create(gender: "M", fun: false, url: "http://images-ff.asos-media.com/shmotterstorage/295990/asom_63cdb768-fabc-4966-adbd-e8a91e0bbb11.jpeg"))
+Look.create(gender: "M", fun: false, url: "http://images-ff.asos-media.com/shmotterstorage/295990/asom_63cdb768-fabc-4966-adbd-e8a91e0bbb11.jpeg")
 Look.create(gender: "M", fun: false, url: "http://images-ff.asos-media.com/shmotterstorage/296265/asom_3bc9b28f-6753-4353-aa02-ee340ea2841e.jpeg")
 Look.create(gender: "M", fun: false, url: "http://images-ff.asos-media.com/shmotterstorage/296034/asom_c0ebc0f6-766c-4e94-a80b-3a79088f8d26.jpeg")
 Look.create(gender: "M", fun: false, url: "http://images-ff.asos-media.com/shmotterstorage/296147/asom_125f6dd5-531d-4794-bda4-3c7398f55134.jpeg")

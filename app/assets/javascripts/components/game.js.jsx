@@ -31,7 +31,8 @@ var Game = React.createClass({
     });
   },
   seenLooks : function(friend_key) {
-    if (this.state.friend_looks === {}) {
+    debugger;
+    if ($.isEmptyObject(this.state.friend_looks)) {
       // console.log('ici');
       looks_to_see = this.props.looks;
     } else {
@@ -68,6 +69,7 @@ var Game = React.createClass({
     // select look
     var looks = Object.keys(this.seenLooks(friend_key));
     var look_key = looks[Math.floor(Math.random() *  looks.length)];
+    console.log(look_key);
     return (
       <div id="game-area text-center">
         <Friend key={friend_key} index={friend_key} details={this.props.friends[friend_key]} ref='friend'/>
